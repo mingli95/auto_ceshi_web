@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/auto_ceshi_web.iml" filepath="$PROJECT_DIR$/.idea/auto_ceshi_web.iml" />
+      <module fileurl="file://D:/azkj-operation-platform/.idea/azkj-operation-platform.iml" filepath="D:/azkj-operation-platform/.idea/azkj-operation-platform.iml" />
+      <module fileurl="file://D:/ftp_upload/.idea/ftp_upload.iml" filepath="D:/ftp_upload/.idea/ftp_upload.iml" />
+    </modules>
+  </component>
+</project>

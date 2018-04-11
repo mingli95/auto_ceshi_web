@@ -1,0 +1,103 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.modal-wrapper{
+    display: none;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.15);
+}
+.modal-box{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 25%;
+    margin: auto;
+    width: 600px;
+    border: 1px solid #e7e7e7;
+    background-color: #fff;
+    border-radius: 5px;
+    z-index: 9999;
+}
+.my-modal-header{
+    height: 45px;
+    border-bottom: 1px solid #e2e2e2;
+}
+.modal-header-title{
+    text-align: center;
+    line-height: 45px;
+}
+.modal-form{
+    padding: 40px 25px 0 25px;
+}
+.form-item{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.form-label{
+    display: inline-block;
+    width: 100px;
+    height: 32px;
+}
+.form-input{
+    width: 418px;
+    height: 32px;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    box-sizing: border-box;
+    text-indent: 10px;
+}
+.my-edit{
+    display: inline-block;
+    width: 80%;
+    text-indent: 50px;
+}
+.form-area{
+    width: 418px;
+    display: inline-block !important;
+}
+.my-modal-footer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 70px;
+}
+.modal-btn{
+    width: 100px;
+    height: 35px;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    margin: 5px 30px 0 30px;
+}
+.modal-true-btn{
+    background-color: #23b38f;
+}
+.modal-false-btn{
+    background-color: #b9bfc8;
+}
+.modal-close-icon{
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    width: 18px;
+    height: 18px;
+    background-image: url(/static/img/close-icon.png);
+    background-repeat: no-repeat;
+}
+.edit-modal-close-icon{
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    width: 18px;
+    height: 18px;
+    background-image: url(/static/img/close-icon.png);
+    background-repeat: no-repeat;
+}
