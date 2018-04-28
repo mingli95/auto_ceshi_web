@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block head %}
+<link href="/static/less/apimodel.css" rel="stylesheet">
+{% endblock %}
+{% block body_header %}
+<h2 class="page-header" id="case-title" data-url={{ url_path }}>新增用例--{{ pro_name }}</h2>
+{% endblock %}
+{% block body %}
+<div class="panel-body">
+    <div class="modal-form">
+        <div class="form-item">
+            <label class="form-label" for="">用例标题：</label>
+            <input class="form-input" id="case-name" type="text" />
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="">所属项目：</label>
+            <input class="form-input" id="case-project" data-id={{ pro_id }} value={{ pro_name }} type="text" />
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="">请求地址:</label>
+            <select class="form-input" id="server-addr">
+            </select>
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="">用例状态:</label>
+            <select class="form-input" id="case-status">
+                <option selected = selected" value=1 >启用</option>
+                <option  value=0 >禁用</option>
+            </select>
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="" style="float: left;">用例描述：</label>
+            <textarea class="form-control form-area form-input" rows="4" id="case-desc" ></textarea>
+        </div>
+        <div class="form-item add-api">
+            <div class="api">
+                <label class="form-label" for="">添加API:</label>
+                <select class="form-input api-select" style="width:300px">
+                    <option>请选择</option>
+                    {% for i in data%}
+                    <option data-id={{ i.id }} data-type={{ i.request_type }} >{{ i.title }}</option>
+                    {% endfor %}
+                </select>
+                <button type="button" class="btn btn-info">Type</button>
+                <button type="button" class="btn btn-info  toggle-btn">展开/收起</button>
+                <div style="display: none;">
+                    <div class="form-item">
+                        <label>请求数据(ReqData)：</label>
+                        <textarea class="form-control form-area form-input" style="width: 834px" rows="6" name="req_data" ></textarea>
+                    </div>
+                    <button type="button" class="btn btn-info add-ast" >添加</button>
+                    <table class="table" style="width: 800px">
+                        <thead>
+                            <tr >
+                                <th >断言表达式(ast)</th>
+                                <th >断言期望值(val)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-info add-dataPass">添加</button>
+                    <table class="table" style="width: 800px">
+                        <thead>
+                        <tr >
+                            <th>出参字段(DataPass_Key)</th>
+                            <th>数据值(DataPass_Val)</th>
+                            <th>数据类型(DataPass_Type)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-info add-case-api" >添加API</button>
+    </div>
+
+
+    <div class="my-modal-footer" style="float:left">
+        <input type="button" class="modal-btn modal-true-btn" id="case-submit-btn" value="确定"/>
+        <input type="button" class="modal-btn modal-false-btn" id="case-cancel-btn" value="取消"/>
+    </div>
+    <!-- /.table-responsive -->
+</div>
+{% endblock %}
+{% block body_js %}
+<!--<script src="/static/js/case_zhdq.js"></script>-->
+<script src="/static/js/caselist.js"></script>
+{% endblock %}

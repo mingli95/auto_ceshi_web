@@ -27,8 +27,12 @@ def apiZysyQyd():
 def api_list():
     if request.method == 'POST':
         req = request.get_json()
-        project_id = req['project_id']
-        pp = db.session.query(apiList).filter(apiList.project_id==project_id).all()
+        try:
+            project_id = req['project_id']
+        except KeyError:
+            return
+
+        pp = db.session.query(apiList).filter(and_(apiList.project_id==project_id)).all()
         data = []
         for i in pp:
             api_dict = {}
@@ -43,6 +47,35 @@ def api_list():
             data.append(api_dict)
         return json.dumps({"status":200,"message":"success!","data":data})
 
+@api.route('/searchApiList',methods=['POST'])
+def searchApiList():
+    if request.method == 'POST':
+        req = request.get_json()
+        project_id = req['project_id']
+        title = req['title']
+        status = req['status']
+        if status == "激活":
+            status=1
+        elif status == "禁用":
+            status=0
+        pp = db.session.query(apiList).filter(and_(apiList.project_id==project_id,apiList.title.ilike(title),apiList.status==status)).all()
+        data = []
+        for i in pp:
+            api_dict = {}
+            api_dict['id']=i.id
+            api_dict['title']=i.title
+            api_dict['url']=i.url
+            api_dict['status']=i.status
+            api_dict['desc']=i.desc
+            api_dict['request_type']=i.request_type
+            api_dict['last_update']=i.last_update.strftime('%Y-%m-%d %H:%M:%S')
+            api_dict['project_id']=i.project_id
+            data.append(api_dict)
+        if data:
+            return json.dumps({"status":200,"message":"success!","data":data})
+        else:
+            return json.dumps({"status":500,"message":"not mapper!"})
+
 @api.route('/apiAdd',methods=['POST'])
 def apiAdd():
     if request.method == 'POST':
@@ -50,6 +83,11 @@ def apiAdd():
         print(req)
         api_name = req['api_name']
         print(api_name)
+        if api_name == "":
+            return json.dumps({
+                "status":500,
+                "message":"api name is not Null!"
+            })
         api_project_id = req['api_project_id']
         api_url = req['api_url']
         api_meta = req['api_meta']

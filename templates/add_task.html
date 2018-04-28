@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block head %}
+<link href="/static/less/apimodel.css" rel="stylesheet">
+{% endblock %}
+{% block body_header %}
+<h2 class="page-header">新增-任务计划</h2>
+{% endblock %}
+{% block body %}
+<div class="panel-body">
+    <div class="modal-form">
+        <div class="form-item">
+            <label class="form-label" for="">任务标题：</label>
+            <input class="form-input" id="task-name" type="text" />
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="">计划开始时间：</label>
+            <input class="form-input" id="start-time" type="text" />
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="">计划结束时间：</label>
+            <input class="form-input" id="end-time" type="text" />
+        </div>
+        <div class="form-group">
+            <label>执行间隔 ：</label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="5" checked>5min
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="30">30min
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="60">1h
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline4" value="720">12h
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline5" value="1440">1d
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline6" value="43200">30d
+            </label>
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="" style="float: left;">任务描述：</label>
+            <textarea class="form-control form-area form-input" rows="4" id="task-desc" ></textarea>
+        </div>
+        <div class="form-item">
+            <label class="form-label" for="" style="float: left;">任务用例：</label>
+            <table class="table table-striped table-bordered table-hover" style="width: 600px">
+                <thead>
+                    <tr>
+                        <th>用例标题</th>
+                        <th>所属项目</th>
+                        <th>请求地址</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td><a> 删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="my-modal-footer" style="float:left">
+        <input type="button" class="modal-btn modal-true-btn" id="case-submit-btn" value="确定"/>
+        <input type="button" class="modal-btn modal-false-btn" id="case-cancel-btn" value="取消"/>
+    </div>
+    <!-- /.table-responsive -->
+</div>
+{% endblock %}
+{% block body_js %}
+{% endblock %}

@@ -57,34 +57,26 @@
 
 
 {% block body_header %}
-<h2 class="page-header" data-id="10010-2-2">API列表>中药溯源>企业端</h2>
+<h2 class="page-header" id = "api-menu-project-id" data-id="10010-2-2" data-url="/apiZysyQyd">API列表>中药溯源>企业端</h2>
 {% endblock %}
 {% block body %}
 <div class="panel-body">
     <div class="table-responsive">
         <div class="form-group" >
             <h4 style="float: left;">所属项目:&nbsp;&nbsp;</h4>
-            <select class="form-control" style="width:100px;float: left;" >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <select class="form-control" style="width:200px;float: left;">
+                <option selected="selected">API列表>中药溯源>采集端</option>
             </select>
-
             <h4 style="float: left;text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;API标题:&nbsp;&nbsp;</h4>
             <div class="form-item">
                 <input class="form-input" id="name" style="width:150px;float: left;" type="text" />
             </div>
             <h4 style="float: left;text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态:&nbsp;&nbsp;</h4>
-            <select class="form-control" style="width:100px;float: left;" >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <select class="form-control" style="width:100px;float: left;" id="status">
+                <option selected="selected">激活</option>
+                <option >禁用</option>
             </select>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary">查询</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" id="api-apilist">查询</button>
         </div>
         <p>
             <button type="button" class="btn btn-info" id="add-api-link">新增</button>
@@ -102,7 +94,7 @@
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="table-tbody">
 
             </tbody>
         </table>
@@ -111,5 +103,6 @@
 </div>
 {% endblock %}
 {% block body_js %}
+<script src="/static/js/api_qyd.js"></script>
 <script src="/static/js/apilist.js"></script>
 {% endblock %}

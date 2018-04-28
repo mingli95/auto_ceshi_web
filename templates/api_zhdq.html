@@ -47,18 +47,62 @@
         </div>
     </div>
 </div>
+<div class="modal-wrapper" id="edit-api-modal">
+    <div class="modal-box">
+        <div class="my-modal-header">
+            <i class="modal-close-icon" id="edit-close-modal-btn"></i>
+            <div class="modal-header-title">增加</div>
+        </div>
+        <div class="modal-form">
+            <div class="form-item">
+                <label class="form-label" for="">API标题：</label>
+                <input class="form-input" id="edit-name" type="text" />
+            </div>
+            <div class="form-item">
+                <label class="form-label" for="">所属项目：</label>
+                <input class="form-input" id="edit-project" type="text" />
+            </div>
+            <div class="form-item">
+                <label class="form-label" for="">接口URL:</label>
+                <input class="form-input" id="edit-url" type="text" />
+            </div>
+            <div class="form-item">
+                <label class="form-label" for="">请求类型:</label>
+                <select class="form-input" id="edit-meta">
+                    <option selected = selected" value="POST" >POST</option>
+                    <option value="GET" >GET</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label class="form-label" for="">状态:</label>
+                <select class="form-input" id="edit-status">
+                    <option selected = selected" value=1 >启用</option>
+                    <option  value=0 >禁用</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label class="form-label" for="" style="float: left;">API描述：</label>
+                <textarea class="form-control form-area form-input" rows="4" id="edit-desc" ></textarea>
+            </div>
+        </div>
+        <div class="my-modal-footer">
+            <input type="button" class="modal-btn modal-true-btn" id="edit-submit-btn" value="确定"/>
+            <input type="button" class="modal-btn modal-false-btn" id="edit-cancel-btn" value="取消"/>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 
 {% block body_header %}
-<h2 class="page-header" id = "api-menu-project-id" data-id="10010-1">API列表>智慧地球</h2>
+<h2 class="page-header" id = "api-menu-project-id" data-id="10010-1" data-url="/apiZhdq">API列表>智慧地球</h2>
 {% endblock %}
 {% block body %}
 <div class="panel-body">
     <div class="table-responsive">
         <div class="form-group" >
             <h4 style="float: left;">所属项目:&nbsp;&nbsp;</h4>
-            <select class="form-control" style="width:200px;float: left;" data-id="10010-1" >
+            <select class="form-control" style="width:200px;float: left;"  >
                 <option selected="selected">API列表>智慧地球</option>
             </select>
 
@@ -68,11 +112,11 @@
             </div>
 
             <h4 style="float: left;text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态:&nbsp;&nbsp;</h4>
-            <select class="form-control" style="width:100px;float: left;" >
+            <select class="form-control" style="width:100px;float: left;" id="status">
                 <option selected="selected">激活</option>
                 <option >禁用</option>
             </select>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary">查询</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" id="api-apilist">查询</button>
         </div>
         <p>
             <button type="button" class="btn btn-info" id="add-api-link">新增</button>
@@ -102,4 +146,5 @@
 {% endblock %}
 {% block body_js %}
 <script src="/static/js/api_zhdq.js"></script>
+<script src="/static/js/apilist.js"></script>
 {% endblock %}

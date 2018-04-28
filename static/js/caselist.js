@@ -1,141 +1,178 @@
 $(function () {
-    $('body').on('click','.add-link',function () {
-        $('#case-modal').show();
-    })
-    $('#close-modal-btn').on('click', function () {
-        $('#case-modal').hide();
-    })
-    $('#cancel-btn').on('click', function () {
-        $('#case-modal').hide();
-    })
+    // 展开收起
+    $(document).ready(function () {
+        $(document).on('change','.api-select',function () {
+            var req_type=$(this).find("option:selected").data('type');
+            if (req_type == undefined){
+                req_type="Type"
+            };
+            console.log(req_type);
+            $(this).next().html(req_type);
+        });
+        $("#quanxuan").on('click',function () {
+           var xz = $(this).prop("checked");
+           var ck = $('.qx').prop("checked",xz);
+        });
 
-    $('#edit-close-modal-btn').on('click', function () {
-        $('#edit-modal').hide();
-    })
-    $('#edit-cancel-btn').on('click', function () {
-        $('#edit-modal').hide();
-    })
-    $('#edit-api-close-modal-btn').on('click', function () {
-        $('#edit-api-modal').hide();
-    })
-    $('#edit-api-cancel-btn').on('click', function () {
-        $('#edit-api-modal').hide();
-    })
-    $('body').on('click','#edit-api',function () {
-        var id = $(this).data('id');
-        var case_id = $(this).data('caseid');
-        html = '<div id="edit-api-box-id" data-caseid='+ case_id +' data-apiid='+ id +'></div>'
-        $('#edit-api-box').html(html);
-        $('#edit-api-modal').show();
-    })
-    $('#edit-api-submit-btn').on('click',function () {
-        var data = {'data': JSON.stringify({
-            apiid: $('#edit-api-box-id').data('apiid'),
-            caseid: $('#edit-api-box-id').data('caseid'),
-            params: $('#case-data').val(),
-            apiast: $('#api-ast').val(),
-            apiastval: $('#api-ast-val').val(),
-            apiout: $('#api-ast-out').val(),
-            apioutval: $('#api-ast-val-out').val(),
-        })};
+        $("#add-case-task").on('click',function () {
+            var str=[];
+            // $("td input:checkbox:checked").each(function () {
+            //     str.push($(this).data('id'));
+            // });
+            $("tr[name='case-tr']").each(function () {
+                var this1=$(this);
+                var id = this1.find("td input:checkbox:checked").data('id');
+                var title = this1.find()
+            })
+            // if(str.length ==0){
+            //     alert('请选择用例！')
+            // }
+            // else {
+            //     var data = JSON.stringify({
+            //         caseIdList:str
+            //     });
+            // self.location="/addTask?case_id="+data;
+            // }
+        });
         $.ajax({
-            data:data,
-            url:'/parame/add',
             type:'POST',
-            dataType:'json',
-            success: function (data) {
-                if (data.status == 200) {
-                    $('#edit-api-modal').hide();
-                    // window.location.reload('/caseList');
-                }
-                else {
-                    alert(data.message);
+            url:'/serverList',
+            dataType: 'json',
+            success:function (data) {
+                var data = data.data;
+                for (var i=0;i<data.length;i++){
+                    $('#server-addr').append('<option data-id='+data[i].id+' >'+data[i].name+'</option>')
                 }
             }
-        })
-    })
-    $('body').on('click','.edit-link',function () {
-        var data = {
-            'data':JSON.stringify({
-                id:$(this).data('id')
-            })};
-        $.ajax({
-            data:data,
-            url:'/apiGetName',
-            type:'POST',
-            dataType:'json',
-            success: function (data) {
-                if (data.status == 200) {
-                    var html = '';
-                    for(var i = 0; i < data.data.length; i++) {
-                        html = html + '<div>'+
-                            '<span style="display: inline-block;width: 80%;text-indent: 50px;">' + data.data[i].name + '</span><a href="#" data-id=' + data.data[i].id +  ' data-caseid=' + data.data[i].case_id +  ' id="edit-api">编辑</a>'+
-                            '</div>';
+        });
+        caseList();
+        $(document).on('click','#api-caselist',function () {
+            caseList();
+        });
+        function caseList(){
+            var data = JSON.stringify({
+                project_id:$('#case-menu-project-id').data('id'),
+                title:$('#name').val()
+            });
+            $.ajax({
+                contentType: "application/json",
+                data: data,
+                url: '/caseList',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 200) {
+                        var html = '';
+                        for (var i = 0; i < data.data.length; i++) {
+                            html = html + "<tr name='case-tr'>" +
+                                "<td><input type='checkbox' class='qx' data-id="+data.data[i].id+"></td>" +
+                                "<td>" + data.data[i].title + "</td>" +
+                                "<td>" + data.data[i].project_id + "</td>" +
+                                "<td>" + data.data[i].server_id + "</td>" +
+                                "<td>" + data.data[i].status + "</td>" +
+                                "<td>" + data.data[i].count + "</td>" +
+                                "<td><a> 编辑</a><a> 复制</a><a> 删除</a><a> 禁用</a></td>" +
+                                "</tr>"
+                            document.getElementById("table-tbody").innerHTML = html;
+                        }
                     }
-                    /*$.each(data.data,function (index,item) {
-                        console.log('item ',item);
-                        html = html + '<div>'+
-                            '<span style="display: inline-block;width: 80%;text-indent: 50px;">' + item.name + '</span><a href="#">编辑</a>'+
-                            '</div>';
-                    })*/
-                    $('#edit-url-box').html(html);
-                    $('#edit-modal').show();
-
                 }
-                else {
+            });
+        };
+    });
+    $(document).on('click','.toggle-btn',function () {
+      $(this).next().slideToggle();
+    });
+    // 添加断言表达式
+    $(document).on('click','.add-ast',function () {
+        $(this).next().find('tbody').append('<tr name="tr_assert">\
+            <td><input class="form-input" name="ast_key" style="width: 400px" type="text"/></td>\
+            <td><input class="form-input" name="ast_val" style="width: 400px" type="text"/></td>\
+            </tr>');
+    });
+    // 添加出参表达式
+    $(document).on('click','.add-dataPass',function () {
+        $(this).next().find('tbody').append(
+            '<tr name="out_param">\
+            <td><input class="form-input" style="width: 400px" type="text" name="out_parm_key" /></td>\
+            <td><input class="form-input" style="width: 400px" type="text" name="out_parm_val" /></td>\
+            <td><select class="form-input" name="out_parm_type">\
+            <option selected = selected" >Str</option>\
+        <option>Int</option>\
+        </select></td>\
+        </tr>'
+        );
+    });
+    // 添加Api
+    var html = $('.add-api').html();
+    $('.add-case-api').on('click',function () {
+        $('.add-api').append(html);
+    });
+
+    $(document).on('click','#case-submit-btn',function () {
+        var data = {};
+        data.title = $('#case-name').val();
+        data.project_id = $('#case-project').data('id');
+        data.server_id = $('#server-addr').find("option:selected").data('id');
+        data.status = $('#case-status').val();
+        data.desc = $('#case-desc').val();
+        var apiList = [];
+        var i=0;
+        $('.api').each(function () {
+            var this1 = $(this);
+            var api = {};
+            api.order = i;
+            api.api_id = this1.find('.api-select option:selected').data('id');
+            api.request = this1.find('textarea[name="req_data"]').val();
+
+            var assert = [];
+            this1.find('tr[name="tr_assert"]').each(function () {
+                var this2 = $(this);
+                var ast = {
+                    key:this2.find('input[name="ast_key"]').val(),
+                    val:this2.find('input[name="ast_val"]').val()
+                };
+                assert.push(ast);
+            });
+            api.assert = assert;
+
+            var out_param = [];
+            this1.find('tr[name="out_param"]').each(function () {
+                var this3 = $(this);
+                var outParam = {
+                    key:this3.find('input[name="out_parm_key"]').val(),
+                    val:this3.find('input[name="out_parm_val"]').val(),
+                    type:this3.find('select[name="out_parm_type"]').val()
+                };
+                out_param.push(outParam);
+            });
+            api.out_param = out_param;
+
+            if (api.api_id != undefined){
+                apiList.push(api);
+            };
+            i++;
+        });
+        data.apiList=apiList;
+        data=JSON.stringify(data);
+        console.log(data);
+        $.ajax({
+            contentType: "application/json",
+            url:'/caseSubmit',
+            type:'POST',
+            dataType: 'json',
+            data:data,
+            success:function (data) {
+                if (data.status == 200){
+                    console.log(data.message);
+                    var url_path=$('#case-title').data('url');
+                    console.log(url_path)
+                    self.location=url_path;
+                }
+                else{
                     alert(data.message);
                 }
             }
         })
-
-
-    })
-    $('#submit-btn').on('click',function () {
-        var data = {'data': JSON.stringify({
-            name: $('#case-name').val(),
-            project: $('#select-id').val(),
-            desc: $('#case-desc').val(),
-            apiId1: $('#select-id1').val(),
-            apiId2: $('#select-id2').val(),
-            apiId3: $('#select-id3').val(),
-        })};
-        $.ajax({
-            data:data,
-            url:'/case/add',
-            type:'POST',
-            dataType:'json',
-            success: function (data) {
-                if (data.status == 200) {
-                    $('.modal-wrapper').hide();
-                    window.location.reload('/caseList');
-                }
-                else {
-                    alert(data.message);
-                }
-            }
-        })
-    })
-    $('.run-link').on('click',function () {
-        var data = {'data':JSON.stringify({
-                id:$(this).data('id')
-            }
-        )};
-        $.ajax({
-            data:data,
-            url:'/case/run',
-            type:'POST',
-            dataType:'json',
-            success: function (data) {
-                if(data.status == 200 ){
-                    alert(data.message)
-                }
-                else {
-                    alert(data.message)
-                }
-
-            }
-        })
-
-
-    })
-})
+    });
+});

@@ -61,9 +61,6 @@ class server(db.Model):
     desc = db.Column(db.TEXT)
     last_update = db.Column(db.DATETIME,default=datetime.datetime.now())
     is_deleted = db.Column(db.BOOLEAN,default=False)
-    project_id = db.Column(db.Integer,db.ForeignKey('parent_project.id'),db.ForeignKey('sub_project.id'))
-    parent_project = db.relationship('parentProject',backref=db.backref('server', lazy='dynamic'))
-    sub_project = db.relationship('subProject',backref=db.backref('server', lazy='dynamic'))
 
 # 用例表
 class casesList(db.Model):
@@ -76,17 +73,17 @@ class casesList(db.Model):
     is_deleted = db.Column(db.BOOLEAN,default=False)
     server_id = db.Column(db.Integer,db.ForeignKey('server.id'))
     server = db.relationship('server',backref=db.backref('cases_list', lazy='dynamic'))
-    project_id = db.Column(db.Integer,db.ForeignKey('parent_project.id'),db.ForeignKey('sub_project.id'))
-    parent_project = db.relationship('parentProject',backref=db.backref('cases_list', lazy='dynamic'))
-    sub_project = db.relationship('subProject',backref=db.backref('cases_list', lazy='dynamic'))
+    project_id = db.Column(db.String(50))
+    count = db.Column(db.Integer,default=1)
+
 
 # 参数表
 class parameters(db.Model):
     __tablename__ = 'parameters'
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
-    serial_number = db.Column(db.Integer)
-    request_data = db.Column(db.TEXT)
-    assert_data = db.Column(db.TEXT)
+    order = db.Column(db.Integer)
+    req = db.Column(db.TEXT)
+    ast = db.Column(db.TEXT)
     out_param = db.Column(db.TEXT)
     last_update = db.Column(db.DATETIME,default=datetime.datetime.now())
     is_deleted = db.Column(db.BOOLEAN,default=False)

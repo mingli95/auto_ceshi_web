@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block head %}
+<link href="/static/less/apimodel.css" rel="stylesheet">
+{% endblock %}
+{% block body_header %}
+<h2 class="page-header" id = "case-menu-project-id" data-id="10020-3" data-url="/caseZhdq">用例列表>智慧地球</h2>
+{% endblock %}
+{% block body %}
+<div class="panel-body">
+    <div class="table-responsive">
+        <div class="form-group" >
+            <h4 style="float: left;">所属项目:&nbsp;&nbsp;</h4>
+            <select class="form-control" style="width:200px;float: left;"  >
+                <option selected="selected">用例列表>智慧地球</option>
+            </select>
+
+            <h4 style="float: left;text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用例标题:&nbsp;&nbsp;</h4>
+            <div class="form-item">
+                <input class="form-input" id="name" style="width:200px;float: left;" type="text" />
+            </div>
+
+            <h4 style="float: left;text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态:&nbsp;&nbsp;</h4>
+            <select class="form-control" style="width:100px;float: left;" id="status">
+                <option selected="selected">激活</option>
+                <option >禁用</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" id="api-caselist">查询</button>
+        </div>
+        <p>
+            <a type="button" class="btn btn-info" id="add-case-link" href="/addCase?pro_id=10020-3&pro_name=用例列表>智慧地球&case_url=caseZhdq">新增</a>
+            <button type="button" class="btn btn-info" id="del-case-link">删除</button>
+            <button type="button" class="btn btn-info" id="add-case-task">添加到新任务</button>
+        </p>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="quanxuan">全选</th>
+                <th>用例标题</th>
+                <th>所属项目</th>
+                <th>请求地址</th>
+                <th>状态</th>
+                <th>状行次数</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="table-tbody">
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.table-responsive -->
+</div>
+{% endblock %}
+{% block body_js %}
+<!--<script src="/static/js/case_zhdq.js"></script>-->
+<script src="/static/js/caselist.js"></script>
+{% endblock %}
