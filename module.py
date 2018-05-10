@@ -114,6 +114,8 @@ class taskCase(db.Model):
     cases_list = db.relationship('casesList',backref=db.backref('task_case', lazy='dynamic'))
     last_update = db.Column(db.DATETIME,default=datetime.datetime.now())
     is_deleted = db.Column(db.BOOLEAN,default=False)
+    order = db.Column(db.Integer)
+    case_name = db.Column(db.String(50))
 
 class report(db.Model):
     __tablename__ = 'report'

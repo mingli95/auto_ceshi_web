@@ -30,3 +30,8 @@ def serverList():
             return json.dumps({"status":200,"message":"success!","data":data})
         else:
             return json.dumps({"status":500,"message":"data Error!"})
+
+@ser.route('/server',methods=['POST','GET'])
+def serverL():
+    data = db.session.query(server).all()
+    return render_template('server.html',data=data)

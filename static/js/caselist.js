@@ -20,19 +20,30 @@ $(function () {
             //     str.push($(this).data('id'));
             // });
             $("tr[name='case-tr']").each(function () {
+                var dic = {};
                 var this1=$(this);
-                var id = this1.find("td input:checkbox:checked").data('id');
-                var title = this1.find()
-            })
-            // if(str.length ==0){
-            //     alert('请选择用例！')
-            // }
-            // else {
-            //     var data = JSON.stringify({
-            //         caseIdList:str
-            //     });
-            // self.location="/addTask?case_id="+data;
-            // }
+                var id = this1.find("input:checkbox:checked").data('id');
+                var title = this1.find("td[name='title']").html();
+                var url = this1.find("td[name='url']").html();
+                var project = this1.find("td[name='project']").html();
+                if(id != undefined ){
+                    dic.id=id;
+                    dic.title=title;
+                    dic.url=url;
+                    dic.project=project;
+                    str.push(dic);
+                }
+            });
+            if(str.length ==0){
+                alert('请选择用例！')
+            }
+            else {
+                var data = JSON.stringify({
+                    caselist:str
+                });
+                self.location="/getCaseList?caselist="+data;
+            }
+            console.log(str);
         });
         $.ajax({
             type:'POST',
@@ -66,9 +77,9 @@ $(function () {
                         for (var i = 0; i < data.data.length; i++) {
                             html = html + "<tr name='case-tr'>" +
                                 "<td><input type='checkbox' class='qx' data-id="+data.data[i].id+"></td>" +
-                                "<td>" + data.data[i].title + "</td>" +
-                                "<td>" + data.data[i].project_id + "</td>" +
-                                "<td>" + data.data[i].server_id + "</td>" +
+                                "<td name='title'>" + data.data[i].title + "</td>" +
+                                "<td name='project'>" + data.data[i].project_id + "</td>" +
+                                "<td name='url'>" + data.data[i].server_id + "</td>" +
                                 "<td>" + data.data[i].status + "</td>" +
                                 "<td>" + data.data[i].count + "</td>" +
                                 "<td><a> 编辑</a><a> 复制</a><a> 删除</a><a> 禁用</a></td>" +

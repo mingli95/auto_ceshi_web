@@ -14,11 +14,11 @@
         </div>
         <div class="form-item">
             <label class="form-label" for="">计划开始时间：</label>
-            <input class="form-input" id="start-time" type="text" />
+            <input class="form-input" id="start-time" type="date" />
         </div>
         <div class="form-item">
             <label class="form-label" for="">计划结束时间：</label>
-            <input class="form-input" id="end-time" type="text" />
+            <input class="form-input" id="end-time" type="date" />
         </div>
         <div class="form-group">
             <label>执行间隔 ：</label>
@@ -42,7 +42,7 @@
             </label>
         </div>
         <div class="form-item">
-            <label class="form-label" for="" style="float: left;">任务描述：</label>
+            <label class="form-label" style="float: left;">任务描述：</label>
             <textarea class="form-control form-area form-input" rows="4" id="task-desc" ></textarea>
         </div>
         <div class="form-item">
@@ -57,30 +57,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
+                {% for i in caselist %}
+                    <tr name="caselist" >
+                        <td name="title" data-id={{ i.id }}>{{ i.title }}</td>
+                        <td name="project">{{ i.project }}</td>
+                        <td name="url">{{ i.url }}</td>
                         <td><a> 删除</a></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -94,4 +78,5 @@
 </div>
 {% endblock %}
 {% block body_js %}
+<script src="/static/js/task.js"></script>
 {% endblock %}
